@@ -14,14 +14,14 @@ namespace App\Controller;
    public function showAll(ClientRepository $clientRepository)
     {
     $clients = $clientRepository->findAll();
-    return $this->render('clients/client_index.html.twig', ["clients" =>$clients]);
+    return $this->render('clients/index.html.twig', ["clients" =>$clients]);
     }
 
     #[Route('/clients/{id}', name: 'client_show')]
     public function showClient (Client $client)
     {
 
-        return $this->render('clients/client_show.html.twig', ['client'=>$client]);
+        return $this->render('clients/show.html.twig', ['client'=>$client]);
     }
 }
 
