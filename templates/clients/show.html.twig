@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Client{% endblock %}
+
+{% block body %}
+<section class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Détails du client</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped mb-4">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nom de l'entreprise</th>
+                        <td>{{ client.companyName }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nom du contact</th>
+                        <td>{{ client.contactName }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td>{{ client.email }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Téléphone</th>
+                        <td>{{ client.phone ?: '—' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="{{ path('client_index') }}" class="btn btn-outline-primary">← Retour à la liste</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
