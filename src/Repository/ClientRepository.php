@@ -17,17 +17,15 @@ class ClientRepository extends ServiceEntityRepository
     }
 
     // Créer une méthode personnalisée dans ClientRepository (avec un LIKE)
-    public function findClientByName(string $contactName): array
-    {
-    // ‘c’: alias for Client       
-    $query = $this->createQueryBuilder('c')
-           ->where('contactName LIKE :contact_name')
-           ->setParameter('contactName', $contactName . '%')
-           ->orderBy('c.contactName', 'ASC')
-           ->getQuery();
-
-    return $query->getResult();
-    }
+public function findClientByName(string $contactName): array
+{
+    return $this->createQueryBuilder('c')
+        ->where('LOWER(c.contactName) LIKE :contact_name')
+        ->setParameter('contact_name', mb_strtolower($contactName) . '%')
+        ->orderBy('c.contactName', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 
     //    /**
     //     * @return Client[] Returns an array of Client objects

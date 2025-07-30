@@ -8,9 +8,9 @@
 
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-      <button class="btn btn-outline-warning" type="submit">Search</button>
+    <form class="d-flex" method="get" action="{{ path('client_search') }}">
+        <input class="form-control me-2" name="name" type="search" placeholder="Nom du contact" aria-label="Search" value="{{ app.request.get('name') }}" />
+        <button class="btn btn-outline-warning" type="submit">Rechercher</button>
     </form>
   </div>
 </nav>
