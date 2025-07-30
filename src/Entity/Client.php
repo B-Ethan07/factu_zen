@@ -6,25 +6,23 @@ use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
-{
+class Client {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column]    
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(name: "company_name", length: 100)]
     private ?string $companyName = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(name: "contact_name", length: 100)]
     private ?string $contactName = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(name: "email", length: 180)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(name: "phone", length: 15, nullable: true)]
     private ?string $phone = null;
-
     public function getId(): ?int
     {
         return $this->id;

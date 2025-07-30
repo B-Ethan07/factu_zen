@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Client{% endblock %}
+
+{% block body %}
+    <h1>Détails du client</h1>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom de l'entreprise</th>
+                <td>{{ client.companyName }}</td>
+            </tr>
+            <tr>
+                <th>Nom du contact</th>
+                <td>{{ client.contactName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ client.phone ?: '—' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('client_index') }}" class="btn btn-secondary">Retour à la liste</a>
+{% endblock %}

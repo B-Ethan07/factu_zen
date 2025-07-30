@@ -16,6 +16,19 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
+    // Créer une méthode personnalisée dans ClientRepository (avec un LIKE)
+    public function findClientByName(string $contactName): array
+    {
+    // ‘c’: alias for Client       
+    $query = $this->createQueryBuilder('c')
+           ->where('contactName LIKE :contact_name')
+           ->setParameter('contactName', $contactName . '%')
+           ->orderBy('c.contactName', 'ASC')
+           ->getQuery();
+
+    return $query->getResult();
+    }
+
     //    /**
     //     * @return Client[] Returns an array of Client objects
     //     */
@@ -41,3 +54,6 @@ class ClientRepository extends ServiceEntityRepository
     //        ;
     //    }
 }
+/* Créer une méthode personnalisée dans ClientRepository (avec un LIKE)
+Créer une route /clients/search?name=…
+Utiliser une requête GET pour filtrer les résultats */
