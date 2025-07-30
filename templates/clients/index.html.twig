@@ -14,31 +14,48 @@
     </form>
   </div>
 </nav>
-    <h1>Liste des Clients</h1>
+<section class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Liste des Clients</h2>
+        </div>
+        <div class="card-body">
 
-    {% if clients is empty %}
-        <p>Aucun client trouvé.</p>
-    {% else %}
-        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
-            <thead>
-                <tr>
-                    <th>Contact</th>
-                    <th>Entreprise</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for client in clients %}
-                    <tr>
-                        <td>{{ client.contactName }}</td>
-                        <td>{{ client.companyName }}</td>
-                        <td>{{ client.email }}</td>
-                        <td>{{ client.phone ?: '—' }}</td>
-                        <td><td><a class="btn btn-primary" href="{{ path('client_show', {'id': client.id}) }}">Show</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+            {% if clients is empty %}
+                <p class="text-muted">Aucun client trouvé.</p>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Contact</th>
+                                <th>Entreprise</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                                <tr>
+                                    <td>{{ client.contactName }}</td>
+                                    <td>{{ client.companyName }}</td>
+                                    <td>{{ client.email }}</td>
+                                    <td>{{ client.phone ?: '—' }}</td>
+                                    <td>
+                                        <a href="{{ path('client_show', {'id': client.id}) }}" class="btn btn-sm btn-outline-primary">
+                                            Détails
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
 {% endblock %}
