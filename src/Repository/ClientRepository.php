@@ -17,12 +17,12 @@ class ClientRepository extends ServiceEntityRepository
     }
 
     // Créer une méthode personnalisée dans ClientRepository (avec un LIKE)
-public function findClientByName(string $contactName): array
+public function findCompanyByName(string $companyName): array
 {
     return $this->createQueryBuilder('c')
-        ->where('LOWER(c.contactName) LIKE :contact_name')
-        ->setParameter('contact_name', mb_strtolower($contactName) . '%')
-        ->orderBy('c.contactName', 'ASC')
+        ->where('LOWER(c.companyName) LIKE :company_name')
+        ->setParameter('company_name', mb_strtolower($companyName) . '%')
+        ->orderBy('c.companyName', 'ASC')
         ->getQuery()
         ->getResult();
 }

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des factures{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1>Liste des factures</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.reference }}</td>
+                <td>{{ invoice.issuedAt|date('d/m/Y') }}</td>
+                <td>{{ invoice.client.companyName }}</td>
+                <td>
+                    <span class="badge bg-{{ invoice.status == 'paid' ? 'success' : (invoice.status == 'sent' ? 'primary' : 'secondary') }}">
+                        {{ invoice.status|upper }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}" class="btn btn-primary btn-sm">Voir la facture</a>
+                    <a href="{{ path('invoice_line_index', {'id': invoice.id}) }}" class="btn btn-info btn-sm">Voir les lignes</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

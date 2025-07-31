@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ parent()}} Accueil 
+  {{ parent()}} Accueil
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <form class="d-flex" method="get" action="{{ path('client_search') }}">
-        <input class="form-control me-2" name="name" type="search" placeholder="Nom du contact" aria-label="Search" value="{{ app.request.get('name') }}" />
+        <input class="form-control me-2" name="name" type="search" placeholder="Nom de la compagnie" aria-label="Search" value="{{ app.request.get('name') }}" />
         <button class="btn btn-outline-warning" type="submit">Rechercher</button>
     </form>
   </div>

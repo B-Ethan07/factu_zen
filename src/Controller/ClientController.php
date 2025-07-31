@@ -25,22 +25,30 @@ use Symfony\Component\HttpFoundation\Request;
         return $this->render('clients/show.html.twig', ['client'=>$client]);
     }
 
-#[Route('/clients/search', name: 'client_search', priority: 1)]
-public function searchClients(Request $request, ClientRepository $clientRepository): Response
-{
-    $name = $request->query->get('name');
+    #[Route('/clients/search', name: 'client_search', priority: 1)]
+    public function searchClients(Request $request, ClientRepository $clientRepository): Response
+    {
+        $name = $request->query->get('name');
 
-    if ($name) {
-        $clients = $clientRepository->findClientByName($name);
-    } else {
+        if ($name) {
+        $clients = $clientRepository->findCompanyByName($name);
+        } else {
         $clients = $clientRepository->findAll();
-    }
+        }
 
-    return $this->render('clients/index.html.twig', [
+        return $this->render('clients/index.html.twig', [
         'clients' => $clients,
-    ]);
-}
-}
+        ]);
+    }
+     #[Route('/client/{id}/invoices', name: 'client_invoices')]
+     public function showInvoices(Client $client): Response
+     {
+         return $this->render('clients/invoices.html.twig', [
+             'client' => $client
+         ]);
+     }
+
+ }
 
 /* Créer un contrôleur ClientController
 Ajouter une route /clients (name: 'client_index')
