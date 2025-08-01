@@ -3,61 +3,62 @@
 {% block title %}Lignes de la facture {{ invoice.reference }}{% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Lignes de la facture {{ invoice.reference }}</h1>
-            <span class="badge bg-{{ invoice.status == 'paid' ? 'success' : (invoice.status == 'sent' ? 'primary' : 'secondary') }}">
-            {{ invoice.status|upper }}
-        </span>
+<section class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center mb-2 py-3">
+            <h2 class="mb-0">Lignes de la facture {{ invoice.reference }}</h2>
+            <span class="badge bg-{{ invoice.status == 'paid' ? 'success' : (invoice.status == 'sent' ? 'primary' : 'secondary') }}">{{ invoice.status|upper }}</span>
         </div>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5>Informations de la facture</h5>
-                <p class="mb-1">Client : {{ invoice.client.companyName }}</p>
-                <p class="mb-1">Date : {{ invoice.issuedAt|date('d/m/Y') }}</p>
+        <div class="card-body">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5>Informations de la facture</h5>
+                    <p class="mb-1">Client : {{ invoice.client.companyName }}</p>
+                    <p class="mb-1">Date : {{ invoice.issuedAt|date('d/m/Y') }}</p>
+                </div>
             </div>
-        </div>
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Désignation</th>
-                    <th class="text-end">Quantité</th>
-                    <th class="text-end">Prix unitaire</th>
-                    <th class="text-end">Total HT</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for line in invoiceLines %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
                     <tr>
-                        <td>{{ line.designation }}</td>
-                        <td class="text-end">{{ line.quantity }}</td>
-                        <td class="text-end">{{ line.unitPrice|number_format(2, ',', ' ') }} €</td>
-                        <td class="text-end">{{ (line.quantity * line.unitPrice)|number_format(2, ',', ' ') }} €</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="3" class="text-end"><strong>Total HT</strong></td>
-                    <td class="text-end">
-                        {% set totalHT = 0 %}
-                        {% for line in invoiceLines %}
-                            {% set totalHT = totalHT + (line.quantity * line.unitPrice) %}
-                        {% endfor %}
-                        <strong>{{ totalHT|number_format(2, ',', ' ') }} €</strong>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
+                        <th>Désignation</th>
+<th class="text-end">Quantité</th>
+<th class="text-end">Prix unitaire</th>
+<th class="text-end">Total HT</th>
+</tr>
+</thead>
+<tbody>
+{% for line in invoiceLines %}
+<tr>
+    <td>{{ line.designation }}</td>
+    <td class="text-end">{{ line.quantity }}</td>
+    <td class="text-end">{{ line.unitPrice|number_format(2, ',', ' ') }} €</td>
+    <td class="text-end">{{ (line.quantity * line.unitPrice)|number_format(2, ',', ' ') }} €</td>
+</tr>
+{% endfor %}
+</tbody>
+<tfoot>
+<tr>
+    <td colspan="3" class="text-end"><strong>Total HT</strong></td>
+    <td class="text-end">
+        {% set totalHT = 0 %}
+        {% for line in invoiceLines %}
+            {% set totalHT = totalHT + (line.quantity * line.unitPrice) %}
+        {% endfor %}
+        <strong>{{ totalHT|number_format(2, ',', ' ') }} €</strong>
+    </td>
+</tr>
+</tfoot>
+</table>
+</div>
 
-        <div class="my-4">
-            <a href="{{ path('client_invoices', {'id': client.id}) }}" class="btn btn-primary">
-                Retour à la liste des factures
-            </a>
-        </div>
-    </div>
+<div class="my-4">
+    <a href="{{ path('client_invoices', {'id': client.id}) }}" class="btn btn-secondary">
+        Retour à la liste des factures
+    </a>
+</div>
+</div>
+</div>
+</section>
 {% endblock %}

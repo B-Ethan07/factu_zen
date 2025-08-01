@@ -3,53 +3,58 @@
 {% block title %}Factures de {{ client.contactName }}{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Factures de {{ client.contactName }}</h1>
-
-        {% if client.invoices|length > 0 %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Référence</th>
-                        <th>Date d'émission</th>
-                        <th>Statut</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for invoice in client.invoices %}
+<section class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h2 class="mb-0">Factures de {{ client.contactName }}</h2>
+        </div>
+        <div class="card-body">
+            {% if client.invoices|length > 0 %}
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ invoice.reference }}</td>
-                            <td>{{ invoice.issuedAt|date('d/m/Y') }}</td>
-                            <td>
-                                {% set statusClass = {
-                                    'draft': 'secondary',
-                                    'sent': 'primary',
-                                    'paid': 'success'
-                                } %}
-                                <span class="badge bg-{{ statusClass[invoice.status] }}">
-                                    {{ invoice.status }}
-                                </span>
-                            </td>
-                            <td>
-                                <a href="{{ path('invoice_show', {'id': invoice.id}) }}" class="btn btn-sm btn-primary">
-                                    Voir la facture
-                                </a>
-                            </td>
+                            <th>Référence</th>
+                            <th>Date d'émission</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="alert alert-info">
-                Ce client n'a aucune facture pour le moment.
-            </div>
-        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for invoice in client.invoices %}
+                            <tr>
+                                <td>{{ invoice.reference }}</td>
+                                <td>{{ invoice.issuedAt|date('d/m/Y') }}</td>
+                                <td>
+                                    {% set statusClass = {
+                                        'draft': 'secondary',
+                                        'sent': 'primary',
+                                        'paid': 'success'
+                                    } %}
+                                    <span class="badge bg-{{ statusClass[invoice.status] }}">
+                                        {{ invoice.status }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}" class="btn btn-sm btn-warning">
+                                        Voir la facture
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info">
+                    Ce client n'a aucune facture pour le moment.
+                </div>
+            {% endif %}
 
-        <div class="mt-3">
-            <a href="{{ path('client_show', {'id': client.id}) }}" class="btn btn-secondary">
-                Retour au client
-            </a>
+            <div class="mt-3">
+                <a href="{{ path('client_show', {'id': client.id}) }}" class="btn btn-secondary">
+                    Retour au client
+                </a>
+            </div>
         </div>
     </div>
+</section>
 {% endblock %}

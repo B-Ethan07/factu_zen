@@ -6,21 +6,21 @@
 
 {% block body %}
 
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <form class="d-flex" method="get" action="{{ path('client_search') }}">
-        <input class="form-control me-2" name="name" type="search" placeholder="Nom de la compagnie" aria-label="Search" value="{{ app.request.get('name') }}" />
-        <button class="btn btn-outline-warning" type="submit">Rechercher</button>
-    </form>
-  </div>
-</nav>
+
 <section class="container my-5">
     <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-dark text-white">
             <h2 class="mb-0">Liste des Clients</h2>
         </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <form class="d-flex" method="get" action="{{ path('client_search') }}">
+                    <input class="form-control me-2" name="name" type="search" placeholder="Nom de la compagnie" aria-label="Search" value="{{ app.request.get('name') }}" />
+                    <button class="btn btn-outline-warning" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </nav>
         <div class="card-body">
-
             {% if clients is empty %}
                 <p class="text-muted">Aucun client trouvé.</p>
             {% else %}
@@ -43,7 +43,7 @@
                                     <td>{{ client.email }}</td>
                                     <td>{{ client.phone ?: '—' }}</td>
                                     <td>
-                                        <a href="{{ path('client_show', {'id': client.id}) }}" class="btn btn-sm btn-outline-primary">
+                                        <a href="{{ path('client_show', {'id': client.id}) }}" class="btn btn-sm btn-warning">
                                             Détails
                                         </a>
                                     </td>
@@ -53,7 +53,6 @@
                     </table>
                 </div>
             {% endif %}
-
         </div>
     </div>
 </section>

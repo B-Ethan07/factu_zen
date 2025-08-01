@@ -5,7 +5,7 @@
 {% block body %}
 <section class="container my-5">
     <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-dark text-white">
             <h2 class="mb-0">Détails du client</h2>
         </div>
         <div class="card-body">
@@ -30,14 +30,14 @@
                     <tr>
                         <th scope="row">Invoice</th>
                         <td>
-                            <a href="{{ path('client_invoices', {'id': client.id}) }}" class="btn btn-primary">
+                            <a href="{{ path('client_invoices', {'id': client.id}) }}" class="btn btn-warning">
                                 Voir les factures ({{ client.invoices|length }})
                             </a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <a href="{{ path('client_index') }}" class="btn btn-outline-primary">← Retour à la liste</a>
+            <a href="{{ path('client_index') }}" class="btn btn-secondary">← Retour à la liste</a>
         </div>
     </div>
 </section>
