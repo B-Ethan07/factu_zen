@@ -51,6 +51,11 @@ public function findCompanyByName(string $companyName): array
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function save(Client $client, true $true)
+    {
+        $this->getEntityManager()->persist($client);
+        $this->getEntityManager()->flush();
+    }
 }
 /* Créer une méthode personnalisée dans ClientRepository (avec un LIKE)
 Créer une route /clients/search?name=…

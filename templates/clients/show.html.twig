@@ -5,8 +5,11 @@
 {% block body %}
 <section class="container my-5">
     <div class="card shadow-sm">
-        <div class="card-header bg-dark text-white">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center mb-2 py-3">
             <h2 class="mb-0">Détails du client</h2>
+            <a href="{{ path('client_edit', {'id': client.id}) }}" class="btn btn-outline-warning">
+                Modifier le client
+            </a>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-striped mb-4">

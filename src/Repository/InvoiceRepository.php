@@ -40,4 +40,9 @@ class InvoiceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function save(Invoice $invoice, true $true)
+    {
+        $this->getEntityManager()->persist($invoice);
+        $this->getEntityManager()->flush();
+    }
 }

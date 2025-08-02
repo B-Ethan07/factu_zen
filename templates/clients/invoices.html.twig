@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Factures de {{ client.contactName }}{% endblock %}
+{% block title %}Factures de {{ client.companyName }}{% endblock %}
 
 {% block body %}
 <section class="container my-5">
     <div class="card shadow-sm">
         <div class="card-header bg-dark text-white">
-            <h2 class="mb-0">Factures de {{ client.contactName }}</h2>
+            <h2 class="mb-0">Factures de {{ client.companyName }}</h2>
         </div>
         <div class="card-body">
             {% if client.invoices|length > 0 %}

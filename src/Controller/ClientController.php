@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+ use App\Entity\Invoice;
  use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  use Symfony\Component\HttpFoundation\Response;
  use Symfony\Component\Routing\Annotation\Route;
@@ -45,6 +46,35 @@ use Symfony\Component\HttpFoundation\Request;
      {
          return $this->render('clients/invoices.html.twig', [
              'client' => $client
+         ]);
+     }
+     #[Route('/client/new', name: 'client_new')]
+     public function newClient(Request $request, ClientRepository $clientRepository): Response
+     {
+         $client = new Client();
+         $form = $this->createForm('App\Form\ClientType', $client);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+             $clientRepository->save($client, true);
+             return $this->redirectToRoute('client_index');
+         }
+         return $this->render('clients/new.html.twig', [
+             'client' => $client,
+             'form' => $form->createView(),
+         ]);
+     }
+     #[Route('/client/{id}/edit', name: 'client_edit')]
+     public function editClient(Request $request, Client $client, ClientRepository $clientRepository): Response
+     {
+         $form = $this->createForm('App\Form\ClientType', $client);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+             $clientRepository->save($client, true);
+             return $this->redirectToRoute('client_index');
+         }
+         return $this->render('clients/edit.html.twig', [
+             'client' => $client,
+             'form' => $form->createView(),
          ]);
      }
 

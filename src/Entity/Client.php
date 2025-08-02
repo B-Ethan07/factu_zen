@@ -6,12 +6,13 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]    
+    #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(name: "company_name", length: 100)]
@@ -20,6 +21,7 @@ class Client {
     #[ORM\Column(name: "contact_name", length: 100)]
     private ?string $contactName = null;
 
+    #[Assert\Email]
     #[ORM\Column(name: "email", length: 180)]
     private ?string $email = null;
 
