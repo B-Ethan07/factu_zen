@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]    
+    #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(name: "company_name", length: 100)]
@@ -18,11 +21,23 @@ class Client {
     #[ORM\Column(name: "contact_name", length: 100)]
     private ?string $contactName = null;
 
+    #[Assert\Email]
     #[ORM\Column(name: "email", length: 180)]
     private ?string $email = null;
 
     #[ORM\Column(name: "phone", length: 15, nullable: true)]
     private ?string $phone = null;
+
+    /**
+     * @var Collection<int, Invoice>
+     */
+    #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'client')]
+    private Collection $invoices;
+
+    public function __construct()
+    {
+        $this->invoices = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -72,6 +87,36 @@ class Client {
     public function setPhone(?string $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getInvoices(): Collection
+    {
+        return $this->invoices;
+    }
+
+    public function addInvoice(Invoice $invoice): static
+    {
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices->add($invoice);
+            $invoice->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): static
+    {
+        if ($this->invoices->removeElement($invoice)) {
+            // set the owning side to null (unless already changed)
+            if ($invoice->getClient() === $this) {
+                $invoice->setClient(null);
+            }
+        }
 
         return $this;
     }
